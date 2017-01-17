@@ -1,0 +1,188 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0",
+        "title": "CharterService API",
+        "description": "This is a toy api for jet charter operators"
+    },
+    "definitions": {
+        "Entity": {
+            "required": [
+                "iD",
+                "entity"
+            ],
+            "type": "object",
+            "properties": {
+                "iD": {
+                    "maximum": 9223372036854775807,
+                    "minimum": -9223372036854775808,
+                    "type": "integer"
+                },
+                "entity": {
+                    "$ref": "#/definitions/Plane"
+                }
+            }
+        },
+        "FlightDuration": {
+            "required": [
+                "flightDurationMin"
+            ],
+            "type": "object",
+            "properties": {
+                "flightDurationMin": {
+                    "format": "double",
+                    "type": "number"
+                }
+            }
+        },
+        "Plane": {
+            "required": [
+                "tailNum",
+                "speedMph",
+                "rangeMi"
+            ],
+            "type": "object",
+            "properties": {
+                "speedMph": {
+                    "format": "double",
+                    "type": "number"
+                },
+                "rangeMi": {
+                    "format": "double",
+                    "type": "number"
+                },
+                "tailNum": {
+                    "type": "string"
+                }
+            }
+        }
+    },
+    "paths": {
+        "/planes": {
+            "post": {
+                "consumes": [
+                    "application/json"
+                ],
+                "responses": {
+                    "400": {
+                        "description": "Invalid `body`"
+                    },
+                    "201": {
+                        "schema": {
+                            "$ref": "#/definitions/Entity"
+                        },
+                        "description": ""
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "required": true,
+                        "schema": {
+                            "$ref": "#/definitions/Plane"
+                        },
+                        "in": "body",
+                        "name": "body"
+                    }
+                ]
+            },
+            "get": {
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "items": {
+                                "$ref": "#/definitions/Entity"
+                            },
+                            "type": "array"
+                        },
+                        "description": ""
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ]
+            }
+        },
+        "/planes/{plane-id}": {
+            "get": {
+                "responses": {
+                    "404": {
+                        "description": "`plane-id` not found"
+                    },
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/Plane"
+                        },
+                        "description": ""
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "maximum": 9223372036854775807,
+                        "minimum": -9223372036854775808,
+                        "required": true,
+                        "in": "path",
+                        "name": "plane-id",
+                        "type": "integer"
+                    }
+                ]
+            }
+        },
+        "/planes/flightDuration": {
+            "get": {
+                "responses": {
+                    "400": {
+                        "description": "Invalid `y2` or `x2` or `y1` or `x1` or `plane-id`"
+                    },
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/FlightDuration"
+                        },
+                        "description": ""
+                    }
+                },
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "maximum": 9223372036854775807,
+                        "minimum": -9223372036854775808,
+                        "in": "query",
+                        "name": "plane-id",
+                        "type": "integer"
+                    },
+                    {
+                        "format": "double",
+                        "in": "query",
+                        "name": "x1",
+                        "type": "number"
+                    },
+                    {
+                        "format": "double",
+                        "in": "query",
+                        "name": "y1",
+                        "type": "number"
+                    },
+                    {
+                        "format": "double",
+                        "in": "query",
+                        "name": "x2",
+                        "type": "number"
+                    },
+                    {
+                        "format": "double",
+                        "in": "query",
+                        "name": "y2",
+                        "type": "number"
+                    }
+                ]
+            }
+        }
+    }
+}
