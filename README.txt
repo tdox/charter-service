@@ -40,7 +40,7 @@ Setup the build tools
    https://docs.haskellstack.org/en/stable/README/)
 
  * Install Haskell
-   $ stack init
+   $ stack setup
 
 
 Build the service
