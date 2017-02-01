@@ -65,7 +65,7 @@ Instructions:
 $ git clone https://github.com/swagger-api/swagger-ui.git
 
 With your broswer, open swagger-ui/dist/index.html.
-In the Explore field, enter "http://localhost:8080/swagger.json"
+In the Explore field, enter "http://localhost:8081/swagger.json"
 
 If you get a message like:
 
